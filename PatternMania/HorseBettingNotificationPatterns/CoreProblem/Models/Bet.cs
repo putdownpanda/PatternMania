@@ -1,15 +1,9 @@
 ﻿using PatternMania.HorseBettingNotificationPatterns.CoreProblem.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace PatternMania.NotificationPatterns.CoreProblem.Models
 {
     public class Bet
     {
-        public string Ulid { get; set; }
+        public string Ulid { get; set; } = System.Ulid.NewUlid(DateTime.UtcNow).ToString();
         public decimal Amount { get; set; }
         public DateTime PlacedAt { get; set; } = DateTime.UtcNow;
 

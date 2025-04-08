@@ -19,62 +19,58 @@ namespace HorseBettingNotifications.Core.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // Seed sample ULUlid values
-            var user1Ulid = Ulid.NewUlid(DateTime.UtcNow).ToString();
-            var user2Ulid = Ulid.NewUlid(DateTime.UtcNow).ToString();
-            var meetingUlid = Ulid.NewUlid(DateTime.UtcNow).ToString();
-            var raceUlid = Ulid.NewUlid(DateTime.UtcNow).ToString();
-            var horse1Ulid = Ulid.NewUlid(DateTime.UtcNow).ToString();
-            var horse2Ulid = Ulid.NewUlid(DateTime.UtcNow).ToString();
-            var winBetTypeUlid = Ulid.NewUlid(DateTime.UtcNow).ToString();
-            var placeBetTypeUlid = Ulid.NewUlid(DateTime.UtcNow).ToString();
-            var bet1Ulid = Ulid.NewUlid(DateTime.UtcNow).ToString();
-            var bet2Ulid = Ulid.NewUlid(DateTime.UtcNow).ToString();
+            var user1 = new User { Username = "jockey_joe", PreferredChannel = "Email" };
+            var user2 = new User { Username = "lucky_lucy", PreferredChannel = "SMS" };
+            var meeting = new Meeting { Location = "Ascot", Date = DateTime.UtcNow.Date };
+            var race = new Race {Name = "Race 1", MeetingUlid = meeting.Ulid, StartTime = DateTime.UtcNow.AddHours(1) };
+            var horse1 = new Horse { Name = "Midnight Thunder", RaceUlid = race.Ulid };
+            var horse2 = new Horse { Name = "golden Arrow", RaceUlid = race.Ulid };
+            var betType1 = new BetType { Name = "Win" };
+            var betType2 = new BetType { Name = "Place" };
+
+            var bet1 = new Bet { 
+                Amount = 200, 
+                BetTypeUlid = betType1.Ulid, 
+                PlacedAt = DateTime.UtcNow, 
+                RaceUlid = race.Ulid, 
+                HorseUlid = horse1.Ulid, 
+                UserUlid = user1.Ulid
+            };
+            var bet2 = new Bet
+            {
+                Amount = 150,
+                BetTypeUlid = betType2.Ulid,
+                PlacedAt = DateTime.UtcNow,
+                RaceUlid = race.Ulid,
+                HorseUlid = horse2.Ulid,
+                UserUlid = user2.Ulid
+            };
 
             modelBuilder.Entity<User>().HasData(
-                new User { Ulid = user1Ulid, Username = "jockey_joe", PreferredChannel = "Email" },
-                new User { Ulid = user2Ulid, Username = "lucky_lucy", PreferredChannel = "SMS" }
+                user1,
+                user2
             );
 
             modelBuilder.Entity<Meeting>().HasData(
-                new Meeting { Ulid = meetingUlid, Location = "Ascot", Date = DateTime.UtcNow.Date }
+                meeting 
             );
 
-            modelBuilder.Entity<Race>().HasData(
-                new Race { Ulid = raceUlid, Name = "Race 1", MeetingUlid = meetingUlid, StartTime = DateTime.UtcNow.AddHours(1) }
+            modelBuilder.Entity<Race>().HasData(race
             );
 
             modelBuilder.Entity<Horse>().HasData(
-                new Horse { Ulid = horse1Ulid, Name = "MUlidnight Thunder" },
-                new Horse { Ulid = horse2Ulid, Name = "Golden Arrow" }
+                horse1,
+                horse2
             );
 
             modelBuilder.Entity<BetType>().HasData(
-                new BetType { Ulid = winBetTypeUlid, Name = "Win" },
-                new BetType { Ulid = placeBetTypeUlid, Name = "Place" }
+                betType1,
+                betType2
             );
 
             modelBuilder.Entity<Bet>().HasData(
-                new Bet
-                {
-                    Ulid = bet1Ulid,
-                    UserUlid = user1Ulid,
-                    RaceUlid = raceUlid,
-                    HorseUlid = horse1Ulid,
-                    BetTypeUlid = winBetTypeUlid,
-                    Amount = 100,
-                    PlacedAt = DateTime.UtcNow
-                },
-                new Bet
-                {
-                    Ulid = bet2Ulid,
-                    UserUlid = user2Ulid,
-                    RaceUlid = raceUlid,
-                    HorseUlid = horse2Ulid,
-                    BetTypeUlid = placeBetTypeUlid,
-                    Amount = 250,
-                    PlacedAt = DateTime.UtcNow
-                }
+                bet1,
+                bet2
             );
         }
     }

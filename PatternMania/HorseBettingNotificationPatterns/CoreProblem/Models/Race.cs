@@ -8,13 +8,12 @@ namespace PatternMania.HorseBettingNotificationPatterns.CoreProblem.Models
 {
     public class Race
     {
-        public string Ulid { get; set; }
+        public string Ulid { get; set; } = System.Ulid.NewUlid(DateTime.UtcNow).ToString();
         public string MeetingUlid { get; set; }
         public Meeting Meeting { get; set; } = default!;
 
         public string Name { get; set; } = string.Empty;
         public DateTime StartTime { get; set; }
-
         public ICollection<Horse> Horses { get; set; } = new List<Horse>();
     }
 
