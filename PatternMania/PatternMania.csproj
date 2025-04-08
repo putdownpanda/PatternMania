@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="HorseBettingNotificationPatterns\Patterns\Creational\" />
+    <Folder Include="HorseBettingNotificationPatterns\Patterns\Behavioral\" />
+    <Folder Include="HorseBettingNotificationPatterns\Patterns\Architecture\" />
+    <Folder Include="HorseBettingNotificationPatterns\Patterns\AsyncPatterns\" />
+    <Folder Include="HorseBettingNotificationPatterns\Patterns\Shared\" />
+    <Folder Include="HorseBettingNotificationPatterns\Patterns\Structural\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="9.0.3" />
+    <PackageReference Include="Ulid" Version="1.3.4" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.0.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>
