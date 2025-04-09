@@ -17,6 +17,15 @@ namespace HorseBettingNotifications.Core.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            // Configure primary keys
+            modelBuilder.Entity<User>().HasKey(u => u.Ulid);
+            modelBuilder.Entity<Bet>().HasKey(b => b.Ulid);
+            modelBuilder.Entity<Meeting>().HasKey(m => m.Ulid);
+            modelBuilder.Entity<Race>().HasKey(r => r.Ulid);
+            modelBuilder.Entity<Horse>().HasKey(h => h.Ulid);
+            modelBuilder.Entity<BetType>().HasKey(bt => bt.Ulid);
+
             base.OnModelCreating(modelBuilder);
 
             var user1 = new User { Username = "jockey_joe", PreferredChannel = "Email" };

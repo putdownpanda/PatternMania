@@ -1,21 +1,22 @@
 ﻿using HorseBettingNotifications.Core.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
 using PatternMania.HorseBettingNotificationPatterns.Patterns.Observer;
-using Xunit;
+using SQLitePCL;
 
 public class ObserverTests
 {
+    private readonly IDbContextFactory<HBDbContext> _contextFactory;
+
+        public ObserverTests()
+    {
+        SQLitePCL.Batteries.Init();
+        _contextFactory = new HBDbContextFactory();
+    }
+
     [Fact]
     public void All_Attached_Observers_Are_Notified()
     {
-        var options = new DbContextOptionsBuilder<HBDbContext>()
-     .UseSqlite("DataSource=:memory:")
-     .Options;
-
-        using var context = new HBDbContext(options);
-        context.Database.OpenConnection(); // Required for in-memory SQLite
-        context.Database.EnsureCreated();
+        using var context = _contextFactory.CreateDbContext();
 
         var bet = context.Bets
             .Include(b => b.User)
@@ -41,13 +42,7 @@ public class ObserverTests
     [Fact]
     public void Detached_Observer_Is_Not_Notified()
     {
-        var options = new DbContextOptionsBuilder<HBDbContext>()
-    .UseSqlite("DataSource=:memory:")
-    .Options;
-
-        using var context = new HBDbContext(options);
-        context.Database.OpenConnection(); // Required for in-memory SQLite
-        context.Database.EnsureCreated();
+        using var context = _contextFactory.CreateDbContext();
 
         var bet = context.Bets
             .Include(b => b.User)
