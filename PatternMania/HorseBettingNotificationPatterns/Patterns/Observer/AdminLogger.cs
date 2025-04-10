@@ -9,6 +9,6 @@ public class AdminLogger : IBetObserver
 {
     public void OnBetPlaced(Bet bet)
     {
-        Console.WriteLine($"[ADMIN LOG] {bet.User.Username} placed {bet.Amount:C} on {bet.Horse.Name}");
+        Console.WriteLine($"[ADMIN LOG] {bet.User.Username} placed {bet.Amount:C} on {bet.Runners}");
     }
 }

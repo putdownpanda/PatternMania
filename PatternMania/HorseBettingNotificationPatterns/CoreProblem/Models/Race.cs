@@ -14,7 +14,7 @@ namespace PatternMania.HorseBettingNotificationPatterns.CoreProblem.Models
 
         public string Name { get; set; } = string.Empty;
         public DateTime StartTime { get; set; }
-        public ICollection<Horse> Horses { get; set; } = new List<Horse>();
+        public ICollection<Runner> Runners { get; set; } = new List<Runner>();
     }
 
 }

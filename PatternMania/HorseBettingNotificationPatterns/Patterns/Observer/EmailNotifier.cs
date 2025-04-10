@@ -5,6 +5,6 @@ public class EmailNotifier : IBetObserver
 {
     public void OnBetPlaced(Bet bet)
     {
-        Console.WriteLine($"📧 Email sent to {bet.User.Username}: You placed a bet on {bet.Horse.Name}");
+        Console.WriteLine($"📧 Email sent to {bet.User.Username}: You placed a bet on {bet.Runners}");
     }
 }

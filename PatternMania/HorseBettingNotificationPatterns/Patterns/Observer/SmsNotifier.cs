@@ -8,6 +8,6 @@ public class SmsNotifier : IBetObserver
 {
     public void OnBetPlaced(Bet bet)
     {
-        Console.WriteLine($"📱 SMS to {bet.User.Username}: Bet placed on {bet.Horse.Name}");
+        Console.WriteLine($"📱 SMS to {bet.User.Username}: Bet placed on {bet.Runners}");
     }
 }

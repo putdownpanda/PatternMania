@@ -6,12 +6,16 @@ using System.Threading.Tasks;
 
 namespace PatternMania.HorseBettingNotificationPatterns.CoreProblem.Models
 {
-    public class Horse
+    public class Runner
     {
         public string Ulid { get; set; } = System.Ulid.NewUlid(DateTime.UtcNow).ToString();
+        public int Number { get; set; } = 0;
+        public int finishPos { get; set; } = 0;
         public string Name { get; set; } = string.Empty;
+        public string Jockey { get; set; } = string.Empty;
+        public string Trainer { get; set; } = string.Empty;
         public string RaceUlid { get; set; }
-        public ICollection<Race> Races { get; set; } = new List<Race>();
+        public Race Race { get; set; }
     }
 
 }

@@ -9,13 +9,14 @@ namespace PatternMania.NotificationPatterns.CoreProblem.Models
 
         public string UserUlid { get; set; }
         public User User { get; set; } = default!;
-
-        public string RaceUlid { get; set; }
-        public Race Race { get; set; } = default!;
-
-        public string HorseUlid { get; set; }
-        public Horse Horse { get; set; } = default!;
-
+        /// <summary>
+        /// This is a comma-separated list of race ULIDs.
+        /// </summary>
+        public string Races { get; set; }
+        /// <summary>
+        /// This is a comma-separated list of horse ULIDS.
+        /// </summary>
+        public string Runners { get; set; }
         public string BetTypeUlid { get; set; }
         public BetType BetType { get; set; } = default!;
     }

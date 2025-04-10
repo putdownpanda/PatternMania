@@ -10,7 +10,7 @@ namespace HorseBettingNotifications.Core.Data
         public DbSet<Bet> Bets => Set<Bet>();
         public DbSet<Meeting> Meetings => Set<Meeting>();
         public DbSet<Race> Races => Set<Race>();
-        public DbSet<Horse> Horses => Set<Horse>();
+        public DbSet<Runner> Horses => Set<Runner>();
         public DbSet<BetType> BetTypes => Set<BetType>();
 
         public HBDbContext(DbContextOptions<HBDbContext> options) : base(options) { }
@@ -23,7 +23,7 @@ namespace HorseBettingNotifications.Core.Data
             modelBuilder.Entity<Bet>().HasKey(b => b.Ulid);
             modelBuilder.Entity<Meeting>().HasKey(m => m.Ulid);
             modelBuilder.Entity<Race>().HasKey(r => r.Ulid);
-            modelBuilder.Entity<Horse>().HasKey(h => h.Ulid);
+            modelBuilder.Entity<Runner>().HasKey(h => h.Ulid);
             modelBuilder.Entity<BetType>().HasKey(bt => bt.Ulid);
 
             base.OnModelCreating(modelBuilder);
@@ -32,8 +32,8 @@ namespace HorseBettingNotifications.Core.Data
             var user2 = new User { Username = "lucky_lucy", PreferredChannel = "SMS" };
             var meeting = new Meeting { Location = "Ascot", Date = DateTime.UtcNow.Date };
             var race = new Race {Name = "Race 1", MeetingUlid = meeting.Ulid, StartTime = DateTime.UtcNow.AddHours(1) };
-            var horse1 = new Horse { Name = "Midnight Thunder", RaceUlid = race.Ulid };
-            var horse2 = new Horse { Name = "golden Arrow", RaceUlid = race.Ulid };
+            var horse1 = new Runner { Name = "Midnight Thunder", Trainer = "bobby", Jockey = "Harriet", RaceUlid = race.Ulid };
+            var horse2 = new Runner { Name = "golden Arrow", Trainer = "Indy", Jockey = "Marget", RaceUlid = race.Ulid };
             var betType1 = new BetType { Name = "Win" };
             var betType2 = new BetType { Name = "Place" };
 
@@ -41,8 +41,8 @@ namespace HorseBettingNotifications.Core.Data
                 Amount = 200, 
                 BetTypeUlid = betType1.Ulid, 
                 PlacedAt = DateTime.UtcNow, 
-                RaceUlid = race.Ulid, 
-                HorseUlid = horse1.Ulid, 
+                Races = race.Ulid,
+                Runners = horse1.Ulid, 
                 UserUlid = user1.Ulid
             };
             var bet2 = new Bet
@@ -50,8 +50,8 @@ namespace HorseBettingNotifications.Core.Data
                 Amount = 150,
                 BetTypeUlid = betType2.Ulid,
                 PlacedAt = DateTime.UtcNow,
-                RaceUlid = race.Ulid,
-                HorseUlid = horse2.Ulid,
+                Races = race.Ulid,
+                Runners = horse2.Ulid,
                 UserUlid = user2.Ulid
             };
 
@@ -67,7 +67,7 @@ namespace HorseBettingNotifications.Core.Data
             modelBuilder.Entity<Race>().HasData(race
             );
 
-            modelBuilder.Entity<Horse>().HasData(
+            modelBuilder.Entity<Runner>().HasData(
                 horse1,
                 horse2
             );
