@@ -1,4 +1,5 @@
 ﻿using PatternMania.HorseBettingNotificationPatterns.CoreProblem.Models;
+using System.Xml.Serialization;
 namespace PatternMania.NotificationPatterns.CoreProblem.Models
 {
     public class Bet
@@ -8,6 +9,7 @@ namespace PatternMania.NotificationPatterns.CoreProblem.Models
         public DateTime PlacedAt { get; set; } = DateTime.UtcNow;
 
         public string UserUlid { get; set; }
+        [XmlIgnore]
         public User User { get; set; } = default!;
         /// <summary>
         /// This is a comma-separated list of race ULIDs.
@@ -19,6 +21,7 @@ namespace PatternMania.NotificationPatterns.CoreProblem.Models
         public string Runners { get; set; }
         public bool isProcessed { get;set; } = false;
         public string BetTypeUlid { get; set; }
+        [XmlIgnore]
         public BetType BetType { get; set; }
     }
 

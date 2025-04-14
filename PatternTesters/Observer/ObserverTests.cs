@@ -20,7 +20,6 @@ public class ObserverTests
 
         var bet = context.Bets
             .Include(b => b.User)
-            .Include(b => b.Runners)
             .First();
 
         var observer1 = new TestObserver();
@@ -46,7 +45,6 @@ public class ObserverTests
 
         var bet = context.Bets
             .Include(b => b.User)
-            .Include(b => b.Runners)
             .First();
 
         var observer = new TestObserver();

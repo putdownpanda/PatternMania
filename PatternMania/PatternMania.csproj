@@ -8,15 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="HorseBettingNotificationPatterns\Patterns\Creational\" />
-    <Folder Include="HorseBettingNotificationPatterns\Patterns\Behavioral\" />
-    <Folder Include="HorseBettingNotificationPatterns\Patterns\Architecture\" />
-    <Folder Include="HorseBettingNotificationPatterns\Patterns\AsyncPatterns\" />
-    <Folder Include="HorseBettingNotificationPatterns\Patterns\Shared\" />
-    <Folder Include="HorseBettingNotificationPatterns\Patterns\Structural\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="9.0.3" />
