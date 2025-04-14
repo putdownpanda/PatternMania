@@ -1,4 +1,5 @@
 ﻿using HorseBettingNotifications.Patterns.Factory;
+using Microsoft.EntityFrameworkCore.Internal;
 using PatternMania.NotificationPatterns.CoreProblem.Models;
 using System;
 using System.Collections.Generic;
@@ -10,8 +11,14 @@ namespace PatternMania.HorseBettingNotificationPatterns.Patterns.Factory;
 public class WinBetProcessor : BaseBetProcessor
 {
     //defaults are valid here
-    public override void Process(Bet bet)
+    public override Bet Process(Bet bet)
     {
         Log("Processing WIN bet: Requires top 1 prediction.");
+
+        bet.isProcessed = true;
+
+        CommitBet(bet);
+
+        return bet;
     }
 }

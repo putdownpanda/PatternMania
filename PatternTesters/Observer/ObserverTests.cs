@@ -7,7 +7,7 @@ public class ObserverTests
 {
     private readonly IDbContextFactory<HBDbContext> _contextFactory;
 
-        public ObserverTests()
+    public ObserverTests()
     {
         SQLitePCL.Batteries.Init();
         _contextFactory = new HBDbContextFactory();

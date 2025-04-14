@@ -12,7 +12,7 @@ namespace PatternMania.NotificationPatterns.CoreProblem.Models
         public string Username { get; set; } = string.Empty;
         public string PreferredChannel { get; set; } = "Email"; // or "SMS", etc.
 
-        public ICollection<Bet> Bets { get; set; } = new List<Bet>();
+        public virtual ICollection<Bet> Bets { get; set; } = new List<Bet>();
     }
 
 }

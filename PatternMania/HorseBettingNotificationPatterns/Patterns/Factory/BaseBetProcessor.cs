@@ -1,4 +1,6 @@
-﻿using HorseBettingNotifications.Patterns.Factory;
+﻿using HorseBettingNotifications.Core.Data;
+using HorseBettingNotifications.Patterns.Factory;
+using Microsoft.EntityFrameworkCore;
 using PatternMania.NotificationPatterns.CoreProblem.Models;
 using System;
 using System.Collections.Generic;
@@ -9,6 +11,13 @@ using System.Threading.Tasks;
 namespace PatternMania.HorseBettingNotificationPatterns.Patterns.Factory;
 public abstract class BaseBetProcessor : IBetProcessor
 {
+    protected readonly IDbContextFactory<HBDbContext> _contextFactory;
+
+    public BaseBetProcessor()
+    {
+        _contextFactory = new HBDbContextFactory();
+    }
+
     protected virtual int MinRunners => 1;
     protected virtual int MaxRunners => 1;
     protected virtual int NoRaces => 1;
@@ -16,12 +25,11 @@ public abstract class BaseBetProcessor : IBetProcessor
     public virtual bool IsValid(Bet bet)
     {
         //Check Required Feilds
-        if (bet.Ulid == "" 
-            || bet.UserUlid == "" 
-            || bet.Races == "" 
-            || bet.BetTypeUlid == "" 
-            || bet.Runners == ""
-            || bet.Races == "")
+        if (string.IsNullOrEmpty(bet.Ulid) ||
+            string.IsNullOrEmpty(bet.UserUlid) ||
+            string.IsNullOrEmpty(bet.Races) ||
+            string.IsNullOrEmpty(bet.BetTypeUlid) ||
+            string.IsNullOrEmpty(bet.Runners))
         {
             Log("Bet is missing required fields.");
             return false;
@@ -45,10 +53,20 @@ public abstract class BaseBetProcessor : IBetProcessor
         return true;
     }
 
-    public abstract void Process(Bet bet);
+    public abstract Bet Process(Bet bet);
 
     protected void Log(string message)
     {
         Console.WriteLine($"[BetProcessor] {message}");
+    }
+
+    protected void CommitBet(Bet bet)
+    {
+        using var context = _contextFactory.CreateDbContext();
+
+        context.Bets.Add(bet);
+        context.SaveChanges();
+
+        Console.WriteLine($"bet {bet.Ulid} written to db");
     }
 }

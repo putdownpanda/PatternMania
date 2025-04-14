@@ -17,8 +17,9 @@ namespace PatternMania.NotificationPatterns.CoreProblem.Models
         /// This is a comma-separated list of horse ULIDS.
         /// </summary>
         public string Runners { get; set; }
+        public bool isProcessed { get;set; } = false;
         public string BetTypeUlid { get; set; }
-        public BetType BetType { get; set; } = default!;
+        public BetType BetType { get; set; }
     }
 
 

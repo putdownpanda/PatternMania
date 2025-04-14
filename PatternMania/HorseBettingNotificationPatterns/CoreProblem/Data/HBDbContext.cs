@@ -26,6 +26,28 @@ namespace HorseBettingNotifications.Core.Data
             modelBuilder.Entity<Runner>().HasKey(h => h.Ulid);
             modelBuilder.Entity<BetType>().HasKey(bt => bt.Ulid);
 
+
+            // Configure relationships
+            modelBuilder.Entity<Bet>()
+                .HasOne(b => b.User)
+                .WithMany(u => u.Bets)
+                .HasForeignKey(b => b.UserUlid);
+
+            modelBuilder.Entity<Bet>()
+                .HasOne(b => b.BetType)
+                .WithMany(b => b.Bets)
+                .HasForeignKey(b => b.BetTypeUlid);
+
+            modelBuilder.Entity<Race>()
+                .HasOne(r => r.Meeting)
+                .WithMany(m => m.Races)
+                .HasForeignKey(r => r.MeetingUlid);
+
+            modelBuilder.Entity<Runner>()
+                .HasOne(r => r.Race)
+                .WithMany(r => r.Runners)
+                .HasForeignKey(r => r.RaceUlid);
+
             base.OnModelCreating(modelBuilder);
 
             var user1 = new User { Username = "jockey_joe", PreferredChannel = "Email" };
@@ -34,12 +56,14 @@ namespace HorseBettingNotifications.Core.Data
             var race = new Race {Name = "Race 1", MeetingUlid = meeting.Ulid, StartTime = DateTime.UtcNow.AddHours(1) };
             var horse1 = new Runner { Name = "Midnight Thunder", Trainer = "bobby", Jockey = "Harriet", RaceUlid = race.Ulid };
             var horse2 = new Runner { Name = "golden Arrow", Trainer = "Indy", Jockey = "Marget", RaceUlid = race.Ulid };
-            var betType1 = new BetType { Name = "Win" };
-            var betType2 = new BetType { Name = "Place" };
+            var win = new BetType { Name = "Win" };
+            var place = new BetType { Name = "Place" };
+            var trifecta = new BetType { Name = "Trifecta" };
+            var firstFour = new BetType { Name = "FF" };
 
             var bet1 = new Bet { 
                 Amount = 200, 
-                BetTypeUlid = betType1.Ulid, 
+                BetTypeUlid = win.Ulid, 
                 PlacedAt = DateTime.UtcNow, 
                 Races = race.Ulid,
                 Runners = horse1.Ulid, 
@@ -48,7 +72,7 @@ namespace HorseBettingNotifications.Core.Data
             var bet2 = new Bet
             {
                 Amount = 150,
-                BetTypeUlid = betType2.Ulid,
+                BetTypeUlid = place.Ulid,
                 PlacedAt = DateTime.UtcNow,
                 Races = race.Ulid,
                 Runners = horse2.Ulid,
@@ -73,8 +97,10 @@ namespace HorseBettingNotifications.Core.Data
             );
 
             modelBuilder.Entity<BetType>().HasData(
-                betType1,
-                betType2
+                win,
+                place,
+                trifecta,
+                firstFour
             );
 
             modelBuilder.Entity<Bet>().HasData(
